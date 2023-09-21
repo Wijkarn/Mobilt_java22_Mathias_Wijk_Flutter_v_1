@@ -27,9 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'Flutter v1'),
       routes: {
-        MyApp.mainPageRoute: (context) => MyHomePage(title: 'Flutter v1'),
-        MyApp.secondPageRoute: (context) =>
-            const Second(), // Define the route for the second page
+        MyApp.mainPageRoute: (context) => const MyHomePage(title: 'Flutter v1'),
+        MyApp.secondPageRoute: (context) => const Second(),
       },
     );
   }
@@ -81,47 +80,69 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'Cat superiority',
+        body: Stack(
+      children: [
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'Cat superiority',
+              ),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: screenHeight / 1.5,
                 ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: screenHeight / 1.5,
-                  ),
-                  child: _imageUrl.isNotEmpty
-                      ? Image.network(
-                          _imageUrl,
-                          fit: BoxFit.cover,
-                        )
-                      : const CircularProgressIndicator(),
-                ),
-              ],
+                child: _imageUrl.isNotEmpty
+                    ? Image.network(
+                        _imageUrl,
+                        fit: BoxFit.cover,
+                      )
+                    : const CircularProgressIndicator(),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 20, // Adjust the values to change the position
+          right: 20,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, MyApp.secondPageRoute);
+            },
+            child: const Text('Go to Second Page'),
+          ),
+        ),
+        Align(
+          alignment: Alignment
+              .bottomCenter, // Adjust to centerRight for right alignment
+          child: OutlinedButton(
+            onPressed: showImage,
+            child: Ink(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blue),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('New cat image'),
+              ),
             ),
           ),
-          Positioned(
-            bottom: 20, // Adjust the values to change the position
-            right: 20,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, MyApp.secondPageRoute);
-              },
-              child: const Text('Go to Second Page'),
-            ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: showImage,
-        tooltip: 'Get new cat image!',
-        child: const Text('New cat image'),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-    );
+        )
+      ],
+    ));
+    // OutlinedButton(
+    //   onPressed: showImage,
+    //   child: Ink(
+    //     decoration: BoxDecoration(
+    //       border:
+    //           Border.all(color: Colors.blue), // Customize the border color
+    //     ),
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(8.0), // Add padding to the button
+    //       child: Text('New cat image'),
+    //     ),
+    //   ),
+    // ));
   }
 }

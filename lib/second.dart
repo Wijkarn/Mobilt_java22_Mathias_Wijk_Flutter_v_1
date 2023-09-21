@@ -5,6 +5,7 @@ class Second extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Second Page'),
@@ -19,10 +20,14 @@ class Second extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            Image.network(
-              'https://www.lego.com/cdn/cs/set/assets/bltcfe4c209d7b5b7d2/75367_alt2.png', // Replace with your image URL
-              fit: BoxFit.cover, // Adjust the fit property as needed
-            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: screenHeight / 2,
+              ),
+              child: Image.network(
+                'https://www.lego.com/cdn/cs/set/assets/bltcfe4c209d7b5b7d2/75367_alt2.png',
+              ),
+            )
           ],
         ),
       ),

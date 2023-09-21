@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'second.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -8,6 +9,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static const String secondPageRoute = '/second';
+  static const String mainPageRoute = '/main';
+
   const MyApp({Key? key});
 
   @override
@@ -22,6 +26,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter v1'),
+      routes: {
+        MyApp.mainPageRoute: (context) => MyHomePage(title: 'Flutter v1'),
+        MyApp.secondPageRoute: (context) =>
+            const Second(), // Define the route for the second page
+      },
     );
   }
 }
@@ -72,36 +81,47 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Cat superiority',
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  'Cat superiority',
+                ),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: screenHeight / 1.5,
+                  ),
+                  child: _imageUrl.isNotEmpty
+                      ? Image.network(
+                          _imageUrl,
+                          fit: BoxFit.cover,
+                        )
+                      : const CircularProgressIndicator(),
+                ),
+              ],
             ),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: screenHeight / 1.5,
-              ),
-              child: _imageUrl.isNotEmpty
-                  ? Image.network(
-                      _imageUrl,
-                      fit: BoxFit.cover,
-                    )
-                  : const CircularProgressIndicator(), // Display a loading indicator if _imageUrl is empty
+          ),
+          Positioned(
+            bottom: 20, // Adjust the values to change the position
+            right: 20,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, MyApp.secondPageRoute);
+              },
+              child: const Text('Go to Second Page'),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: showImage,
         tooltip: 'Get new cat image!',
-        child: const Icon(Icons.add),
+        child: const Text('New cat image'),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

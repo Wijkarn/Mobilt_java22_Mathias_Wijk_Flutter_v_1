@@ -104,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Positioned(
-          bottom: 20, // Adjust the values to change the position
-          right: 20,
+          bottom: 1,
+          right: 0,
           child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, MyApp.secondPageRoute);
@@ -114,16 +114,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         Align(
-          alignment: Alignment
-              .bottomCenter, // Adjust to centerRight for right alignment
+          alignment: Alignment.bottomLeft,
           child: OutlinedButton(
             onPressed: showImage,
             child: Ink(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.blue),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text('New cat image'),
               ),
             ),
@@ -131,18 +130,5 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     ));
-    // OutlinedButton(
-    //   onPressed: showImage,
-    //   child: Ink(
-    //     decoration: BoxDecoration(
-    //       border:
-    //           Border.all(color: Colors.blue), // Customize the border color
-    //     ),
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(8.0), // Add padding to the button
-    //       child: Text('New cat image'),
-    //     ),
-    //   ),
-    // ));
   }
 }

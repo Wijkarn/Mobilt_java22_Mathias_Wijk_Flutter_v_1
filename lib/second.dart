@@ -86,12 +86,12 @@ class _SecondState extends State<Second> {
             ),
             ElevatedButton(
               onPressed: () async {
-                const url =
-                    'https://www.lego.com/en-se/product/venator-class-republic-attack-cruiser-75367';
-                if (await canLaunch(url)) {
-                  await launch(url);
+                final Uri uri = Uri.parse(
+                    'https://www.lego.com/en-se/product/venator-class-republic-attack-cruiser-75367');
+                if (await canLaunchUrl(uri)) {
+                  await launchUrl(uri);
                 } else {
-                  throw 'Could not launch $url';
+                  throw 'Could not launch ${uri.toString()}';
                 }
               },
               child: const Text('Venator Link'),

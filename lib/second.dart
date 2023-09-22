@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Second extends StatefulWidget {
   const Second({Key? key});
@@ -30,7 +31,7 @@ class _SecondState extends State<Second> {
             ),
             const SizedBox(height: 16),
             const Text(
-              'Is the Venator-Class Republic Attack Cruiser #75367 the best lego set of all time?(all facts no opinions)',
+              'Is the Venator-Class Republic Attack Cruiser #75367 the best lego set of all time? (all facts, no opinions)',
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -45,22 +46,22 @@ class _SecondState extends State<Second> {
                   onChanged: (value) {
                     setState(() {
                       selectedOption = value;
-                      feedbackText = 'Ofcourse it is!';
+                      feedbackText = 'Of course it is!';
                     });
                   },
                 ),
-                const Text('Yes I am smart!'),
+                const Text('Yes, I am smart!'),
                 Radio<String>(
                   value: 'No',
                   groupValue: selectedOption,
                   onChanged: (value) {
                     setState(() {
                       selectedOption = value;
-                      feedbackText = 'Are you fucking stupid?';
+                      feedbackText = 'Are you fucking dumb?';
                     });
                   },
                 ),
-                const Text('No I am an idiot!'),
+                const Text('No, I am stupid.'),
               ],
             ),
             const SizedBox(height: 16),
@@ -69,7 +70,7 @@ class _SecondState extends State<Second> {
                 feedbackText!,
                 style: TextStyle(
                   fontSize: 16,
-                  color: feedbackText == 'Ofcourse it is!'
+                  color: feedbackText == 'Of course it is!'
                       ? Colors.green
                       : Colors.red,
                 ),
@@ -82,7 +83,19 @@ class _SecondState extends State<Second> {
               child: Image.network(
                 'https://www.lego.com/cdn/cs/set/assets/bltcfe4c209d7b5b7d2/75367_alt2.png',
               ),
-            )
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                const url =
+                    'https://www.lego.com/en-se/product/venator-class-republic-attack-cruiser-75367';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+              child: const Text('Venator Link'),
+            ),
           ],
         ),
       ),

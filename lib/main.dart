@@ -80,55 +80,58 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
+        appBar: AppBar(
+          title: const Text('Cats > Dogs'),
+        ),
         body: Stack(
-      children: [
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'Cat superiority',
-              ),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: screenHeight / 1.5,
-                ),
-                child: _imageUrl.isNotEmpty
-                    ? Image.network(
-                        _imageUrl,
-                        fit: BoxFit.cover,
-                      )
-                    : const CircularProgressIndicator(),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 1,
-          right: 0,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, MyApp.secondPageRoute);
-            },
-            child: const Text('Go to Second Page'),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: OutlinedButton(
-            onPressed: showImage,
-            child: Ink(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('New cat image'),
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    'Cat superiority',
+                  ),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: screenHeight / 1.5,
+                    ),
+                    child: _imageUrl.isNotEmpty
+                        ? Image.network(
+                            _imageUrl,
+                            fit: BoxFit.cover,
+                          )
+                        : const CircularProgressIndicator(),
+                  ),
+                ],
               ),
             ),
-          ),
-        )
-      ],
-    ));
+            Positioned(
+              bottom: 1,
+              right: 0,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyApp.secondPageRoute);
+                },
+                child: const Text('Go to Second Page'),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: OutlinedButton(
+                onPressed: showImage,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('New cat image'),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ));
   }
 }
